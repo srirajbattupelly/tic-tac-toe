@@ -1,0 +1,891 @@
+<html>
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <div class="gameArea gameAreaHide">
+    <div class="title">
+      Tic-Tac-Toe
+    </div>
+
+    <div class="resultField">
+      <div>
+        <span id="playerDisplay" class="playerDisplayOne">
+          Player <span class="displayXO">X</span>
+        </span>
+        <span class="playerOne"></span>
+        <span class="resultPlayerOne">0</span>
+      </div>
+      <div>
+        <span id="playerDisplay" class="playerDisplayTwo">
+          Player <span class="displayXO">O</span>
+        </span>
+        <span class="playerTwo"></span>
+        <span class="resultPlayerTwo">0</span>
+      </div>
+    </div>
+
+    <div class="messageField">
+      <div class="messageFieldInner"></div>
+    </div>
+    <div class="playField">
+      <button id="one" class="firstRow firstColumn diagonalDown"></button>
+      <button id="two" class="firstRow secondColumn"></button>
+      <button id="three" class="firstRow thirdColumn diagonalUp"></button>
+      <button id="four" class="secondRow firstColumn"></button>
+      <button id="five" class="secondRow secondColumn diagonalDown diagonalUp"></button>
+      <button id="six" class="secondRow thirdColumn"></button>
+      <button id="seven" class="thirdRow firstColumn diagonalUp"></button>
+      <button id="eight" class="thirdRow secondColumn"></button>
+      <button id="nine" class="thirdRow thirdColumn diagonalDown"></button>
+    </div>
+
+    <div class="winnerWindow">
+      <span class="winner">WINNER</span>
+      <span class="winnerName">Name Of Winner</span>
+      <button class="playAgain">Play Again</button>
+      <button class="resetGame">Reset Game</button>
+    </div>
+  </div>
+
+  <!-- player  names -->
+  <div class="playerNames">
+    <div class="title">
+      Tic-Tac-Toe
+    </div>
+
+    <form action="/tic-tac-toe">
+      <div>
+        <label for="playerX">Player1 Name:</label>
+        <input type="text" name="" id="playerX" autofocus>
+      </div>
+      <div>
+        <label for="playerO">Player2 Name:</label>
+        <input type="text" name="" id="playerO">
+      </div>
+      <button>
+       Let's Start The Game!!
+      </button>
+    </form>
+  </div> 
+  <style>
+  * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat';
+  font-weight: 500;
+}
+
+*::selection {
+  user-select: none;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: rgb(207, 224, 232);
+  cursor: default;
+}
+
+button {
+  cursor: pointer;
+  background-color: rgb(207, 224, 232);
+  font-weight: 600;
+  border: none;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.61);
+}
+
+
+.spanXO {
+  font-family: 'Montserrat';
+  font-size: 30px;
+  font-weight: 400;
+}
+
+
+.title {
+  width: 100%;
+  height: 10%;
+  letter-spacing: 3px;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 36px;
+  color: white
+}
+
+
+.playerNames {
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(0,0,0);
+  border: 2px solid rgb(255,255,255);
+}
+
+.playerNamesHide {
+  display: none;
+}
+
+form {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  display: block;
+  font-size: 25px;
+  letter-spacing: 1px;
+  color: white;
+}
+
+form div {
+  width: 60%;
+  height: 120px;
+}
+
+input {
+  font-size: 25px;
+  color: white;
+  padding: 1px 5px;
+  letter-spacing: 3px;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  outline: none;
+}
+
+form button {
+  width: 55%;
+  font-size: 20px;
+  letter-spacing: 1px;
+  padding: 7px 20px;
+}
+
+
+.gameArea {
+  width: 400px;
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(0,0,0);
+  border: 2px solid rgb(255,255,255);
+}
+
+.gameAreaHide {
+  display: none;
+}
+
+
+
+.resultField {
+  width: 100%;
+  height: 20%;
+  padding: 0px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.resultField div {
+  width: 48%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255,255,255);
+  border: 2px solid rgb(0,0,0);
+  color: rgb(32, 39, 58);
+}
+
+#playerDisplay {
+  font-size: 16px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgb(0,0,0);
+  height: 16%;
+}
+
+.displayXO {
+  font-family: 'Montserrat';
+  font-size: 18px;
+}
+
+.playerDisplayHide {
+  display: none;
+}
+
+.playerOne, .playerTwo {
+  height: 28%;
+  font-size: 26px;
+  font-weight: 800;
+  max-width: 98%;
+  overflow: hidden;
+}
+
+.resultPlayerOne, .resultPlayerTwo {
+  font-size: 44px;
+  height: 55%;
+}
+
+
+
+.messageField {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.messageField div {
+  display: flex;
+  align-items: baseline;
+}
+
+
+
+.playField {
+  width: 100%;
+  height: 60%;
+  padding: 0 5px 5px 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  justify-content: center;
+}
+
+.playFieldHide {
+  display: none;
+}
+
+
+.playField button {
+  width: 33%;
+  height: 33%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat';
+  font-size: 110px;
+  font-weight: 400;
+  text-shadow: 1px 3px 7px rgba(0, 0, 0, 0.534);
+  transition: all 0.7s ease-in;
+}
+
+.firstColumn, .secondColumn, .thirdColumn {
+  background-color: rgb(0,0,0);
+  border: 2px solid rgb(255,255,255);
+  box-shadow: 0px 2px 10px rgb(102, 114, 146);
+  color: rgb(255,255,255);
+
+}
+
+.firstColumn, .secondColumn {
+  border-right: none;
+}
+
+.firstRow, .secondRow {
+  border-bottom: none;
+}
+
+
+.bleepWinner {
+  color: black;
+  background-color: rgb(255,255,255);
+}
+
+
+.winnerWindow {
+  display: none;
+}
+
+.winnerWindowShow {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 25px;
+}
+
+.winner {
+  font-size: 65px;
+  font-family: 'Montserrat';
+  font-weight: 400;
+  letter-spacing: 10px;
+  color: white
+}
+
+.winnerName {
+  font-size: 40px;
+  padding-bottom: 35px;
+  color: white;
+  max-width: 90%;
+  overflow: hidden;
+}
+
+.playAgain {
+  width: 70%;
+  height: 50px;
+  font-size: 27px;
+  letter-spacing: 2px;
+}
+
+.resetGame {
+  width: 50%;
+  height: 40px;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+
+
+@media (max-width: 402px) {
+
+  .playerNames {
+    width: 300px;
+    height: 500px;
+  }
+
+  form div {
+    width: 80%;
+    height: 120px;
+  }
+
+  form button {
+    width: 70%;
+    letter-spacing: 1px;
+    padding: 10px 5px;
+  }
+
+ 
+  .gameArea {
+    width: 300px;
+    height: 500px;
+  }
+
+  
+  #playerDisplay {
+    font-size: 16px;
+    letter-spacing: 1px;
+    border-bottom: none;
+    height: 16%;
+  }
+
+  .playerOne, .playerTwo {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .resultPlayerOne, .resultPlayerTwo {
+    font-size: 26px;
+  }
+
+  
+
+  .messageField, .takenMessageDiv {
+    font-size: 20px;
+  }
+
+ 
+
+  .playField {
+    padding: 0 5px 5px 5px;
+  }
+
+  .playField button {
+    font-size: 90px;
+  }
+
+ 
+
+
+  .winner {
+    font-size: 55px;
+    font-weight: 200;
+    letter-spacing: 8px;
+  }
+
+  .winnerName {
+    font-size: 50px;
+    font-weight: 400;
+    letter-spacing: 7px;
+    padding-bottom: 20px;
+  }
+}
+
+@media (max-width: 302px) {
+
+  .spanXO {
+    font-family: 'Montserrat';
+    font-size: 26px;
+    font-weight: 400;
+  }
+
+  .title {
+    padding-top: 3px;
+    font-size: 26px;
+  }
+
+  
+  .playerNames {
+    width: 220px;
+    height: 350px;
+  }
+
+  form div {
+    width: 85%;
+    height: 100px;
+  }
+
+  label {
+    font-size: 20px;
+  }
+
+  form button {
+    width: 80%;
+    letter-spacing: 0px;
+    padding: 8px 5px;
+    font-size: 18px;
+  }
+
+  
+  .gameArea {
+    width: 220px;
+    height: 350px;
+  }
+
+  
+  .divPlayeOne, .divPlayeTwo {
+    border: 2px solid rgb(255,255,255);
+  }
+
+  #playerDIsplay {
+    font-size: 12px;
+    letter-spacing: 1px;
+    height: 20%;
+  }
+
+  .playerOne, .playerTwo {
+    font-size: 18px;
+    letter-spacing: 0px;
+    height: 30%;
+  }
+
+  .resultPlayerOne, .resultPlayerTwo {
+    font-size: 20px;
+    height: 50%;
+  }
+
+
+
+  .messageField, .takenMessageDiv {
+    font-size: 16px;
+  }
+
+  #playerDisplay {
+    font-size: 12px;
+  }
+
+  .displayXO {
+    font-size: 10px;
+  }
+
+
+
+  .playField {
+    padding: 0 3px 3px 3px;
+  }
+
+  .playField button {
+    font-size: 65px;
+  }
+
+
+  .winnerWindow {
+    padding-bottom: 2px;
+  }
+
+  .winner {
+    font-size: 45px;
+    font-weight: 200;
+    letter-spacing: 1px;
+  }
+
+  .winnerName {
+    font-size: 35px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+  }
+
+  .playAgain {
+    width: 70%;
+    height: 40px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding: 5px, 8px;
+  }
+
+  .resetGame {
+    width: 50%;
+    height: 30px;
+    font-size: 16px;
+    letter-spacing: 0px;
+    padding: 10px, 15px;
+  }
+
+
+}
+</style>
+
+
+<script>
+const gameBoard = document.querySelectorAll('.playField button');
+const messageField = document.querySelector('.messageField div');
+const playField = document.querySelector('.playField');
+const winnerWindow = document.querySelector('.winnerWindow');
+let drawCount = 0;
+const arrMoves = [[], [], []];
+
+let playerX; 
+rollDice();
+
+// to decide who is going to play first
+function rollDice() {
+  let num = Math.floor(Math.random() * 20);
+  if (num % 2 === 0) {
+    playerX = true;
+    messageField.innerHTML = "Player <span class='spanXO'>X</span> starts";
+  }
+  else {
+    playerX = false
+    messageField.innerHTML = "Player <span class='spanXO'>O</span> starts";
+  }
+}
+
+// information about players
+function playerNames(eventObject) {
+  eventObject.preventDefault();
+
+  //showing or diplaying their names on the screen
+  const playerOne = document.querySelector('.playerOne');
+  const playerTwo = document.querySelector('.playerTwo');
+  //choosing input text to catch players names
+  const namePlayerX = document.querySelector('#playerX');
+  const namePlayerO = document.querySelector('#playerO');
+
+  //displaying player names 
+  if (namePlayerX.value === '') {
+    const playerDisplayX = document.querySelector('.playerDisplayOne');
+    playerDisplayX.classList.add('playerDisplayHide');
+    playerOne.innerText = 'Player X';
+  }
+  else
+    playerOne.innerText = namePlayerX.value;
+
+  if (namePlayerO.value === '') {
+    const playerDisplayX = document.querySelector('.playerDisplayTwo');
+    playerDisplayX.classList.add('playerDisplayHide');
+    playerTwo.innerText = 'Player O';
+  }
+  else
+    playerTwo.innerText = namePlayerO.value;
+
+  //stopping playerNames window
+  const playerNames = document.querySelector('.playerNames');
+  playerNames.classList.add('playerNamesHide');
+
+  namePlayerX.value = ''; //clearing name input
+  namePlayerO.value = '';
+
+  //starting gameArea window
+  const gameArea = document.querySelector('.gameArea');
+  gameArea.classList.remove('gameAreaHide');
+}
+
+
+function game() {
+
+ 
+  if (this.innerText) {
+    if (playerX)
+      messageField.innerHTML = "Spot taken. Player: <span class='spanXO'>X</span>";
+    else
+      messageField.innerHTML = "Spot taken. Player: <span class='spanXO'>O</span>";
+  }
+  else {
+    
+    const checkForWinner = (move) => {
+      let isWinner = checkWinner(move);
+      if (isWinner) {
+        for (let btn of gameBoard) {
+          btn.disabled = true;
+        }
+        displayWinning(move);
+      }
+      else if (drawCount === 9)
+        displayDraw();
+    }
+    
+    if (playerX) {
+      messageField.innerHTML = "Player: <span class='spanXO'>O</span>";
+      this.innerText = 'X';
+      playerX = false;
+      fillArray(this.id, this.innerText);
+      drawCount++;
+      checkForWinner(this.innerText);
+    }
+    
+    else {
+      messageField.innerHTML = "Player: <span class='spanXO'>X</span>";
+      this.innerText = 'O';
+      playerX = true;
+      fillArray(this.id, this.innerText);
+      drawCount++;
+      checkForWinner(this.innerText);
+    }
+  }
+}
+
+
+function fillArray(id, move) {
+  switch (id) {
+    case 'one':
+      arrMoves[0][0] = move;
+      break;
+    case 'two':
+      arrMoves[0][1] = move;
+      break;
+    case 'three':
+      arrMoves[0][2] = move;
+      break;
+    case 'four':
+      arrMoves[1][0] = move;
+      break;
+    case 'five':
+      arrMoves[1][1] = move;
+      break;
+    case 'six':
+      arrMoves[1][2] = move;
+      break;
+    case 'seven':
+      arrMoves[2][0] = move;
+      break;
+    case 'eight':
+      arrMoves[2][1] = move;
+      break;
+    case 'nine':
+      arrMoves[2][2] = move;
+      break;
+  }
+}
+
+
+const blinkWinningField = function (direction, place) {
+
+  const addBleepWinner = (divArray) => {
+    for (let item of divArray) {
+      item.classList.add('bleepWinner');
+    }
+  }
+
+  if (direction === 'r') {
+    switch (place) {
+      case 0:
+        const rowDivsOne = document.querySelectorAll('.firstRow');
+        addBleepWinner(rowDivsOne);
+        break;
+      case 1:
+        const rowDivsTwo = document.querySelectorAll('.secondRow');
+        addBleepWinner(rowDivsTwo);
+        break;
+      case 2:
+        const rowDivsThree = document.querySelectorAll('.thirdRow');
+        addBleepWinner(rowDivsThree);
+        break;
+    }
+  }
+  else if (direction === 'c') {
+    switch (place) {
+      case 0:
+        const colDivsOne = document.querySelectorAll('.firstColumn');
+        addBleepWinner(colDivsOne);
+        break;
+      case 1:
+        const colDivsTwo = document.querySelectorAll('.secondColumn');
+        addBleepWinner(colDivsTwo);
+        break;
+      case 2:
+        const colDivsThree = document.querySelectorAll('.thirdColumn');
+        addBleepWinner(colDivsThree);
+        break;
+    }
+  }
+  else if (direction === 'ddown') {
+    const dDownDivs = document.querySelectorAll('.diagonalDown');
+    addBleepWinner(dDownDivs);
+  }
+  else { 
+    const dUpDivs = document.querySelectorAll('.diagonalUp');
+    addBleepWinner(dUpDivs);
+  }
+}
+
+function checkWinner(move) {
+
+  
+  for (let r = 0; r < 3; r++) {
+    if (arrMoves[r][0] === move && arrMoves[r][1] === move && arrMoves[r][2] === move) {
+      scoreTracker(move);
+      blinkWinningField('r', r);
+      return true;
+    }
+  }
+ 
+  for (let c = 0; c < 3; c++) {
+    if (arrMoves[0][c] === move && arrMoves[1][c] === move && arrMoves[2][c] === move) {
+      scoreTracker(move);
+      blinkWinningField('c', c);
+      return true;
+    }
+  }
+  
+  if (arrMoves[0][0] === move && arrMoves[1][1] === move && arrMoves[2][2] === move) {
+    scoreTracker(move);
+    blinkWinningField('ddown', null);
+    return true;
+  }
+  
+  if (arrMoves[0][2] === move && arrMoves[1][1] === move && arrMoves[2][0] === move) {
+    scoreTracker(move);
+    blinkWinningField('dup', null);
+    return true;
+  }
+  return false;
+}
+
+
+function displayWinning(winner) {
+  setTimeout(() => {
+    const winnerWindow = document.querySelector('.winnerWindow');
+    const winnerName = document.querySelector('.winnerName');
+    const playerX = document.querySelector('.playerOne');
+    const playerO = document.querySelector('.playerTwo');
+
+    if (winner === 'X')
+      winnerName.innerText = playerX.innerText;
+    else
+      winnerName.innerText = playerO.innerText;
+
+    playField.classList.add('playFieldHide');
+    messageField.innerText = '';
+    winnerWindow.classList.add('winnerWindowShow');
+  }, 1500);
+}
+
+
+function displayDraw() {
+  const winner = document.querySelector('.winner');
+  const winnerName = document.querySelector('.winnerName');
+
+  playField.classList.add('playFieldHide');
+  messageField.innerText = '';
+  winnerWindow.classList.add('winnerWindowShow');
+  winner.innerText = 'DRAW'
+  winnerName.innerText = ' ';
+}
+
+
+function scoreTracker(move) {
+  const playerX = document.querySelector('.resultPlayerOne');
+  const playerO = document.querySelector('.resultPlayerTwo');
+
+  if (move === 'X')
+    playerX.innerText++;
+  else
+    playerO.innerText++;
+}
+
+
+function resetGameBoard() {
+
+  rollDice();
+  drawCount = 0; //start at zero again
+
+  
+  for (let r = 0; r < 3; r++) {
+    for (let c = 0; c < 3; c++) {
+      arrMoves[r][c] = '';
+    }
+  }
+  
+  for (let btn of gameBoard) {
+    btn.innerText = '';
+    btn.classList.remove('bleepWinner');
+    btn.disabled = false;
+  }
+
+  const winner = document.querySelector('.winner');
+  winner.innerText = 'WINNER';
+
+  playField.classList.remove('playFieldHide');
+  winnerWindow.classList.remove('winnerWindowShow');
+}
+
+
+function resetScoreTracker() {
+  const playerX = document.querySelector('.resultPlayerOne');
+  const playerO = document.querySelector('.resultPlayerTwo');
+
+  playerX.innerText = 0;
+  playerO.innerText = 0;
+}
+
+
+
+const form = document.querySelector('form');
+form.addEventListener('submit', playerNames);
+
+
+for (let btn of gameBoard) {
+  btn.addEventListener('click', game);
+}
+
+
+const resetGameButton = document.querySelector('.resetGame');
+resetGameButton.addEventListener('click', () => {
+  resetGameBoard();
+  resetScoreTracker();
+  
+  const playerNames = document.querySelector('.playerNames');
+  playerNames.classList.remove('playerNamesHide');
+  
+  const gameArea = document.querySelector('.gameArea');
+  gameArea.classList.add('gameAreaHide');
+
+  const playerDisplayX = document.querySelector('.playerDisplayOne');
+  playerDisplayX.classList.remove('playerDisplayHide');
+  const playerDisplayO = document.querySelector('.playerDisplayTwo');
+  playerDisplayO.classList.remove('playerDisplayHide');
+})
+const playAgainButton = document.querySelector('.playAgain');
+playAgainButton.addEventListener('click', resetGameBoard)
+
+  </script>
+</html>
